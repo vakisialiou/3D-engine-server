@@ -1,0 +1,14 @@
+.side-bar-item {
+
+  &_btn-remove {
+    display: none;
+    fill: #DDDDDD;
+
+    &:hover {
+      fill: #000000;
+    }
+  }
+  &:hover &_btn-remove {
+    display: unset;
+  }
+}
