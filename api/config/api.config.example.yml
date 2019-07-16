@@ -1,4 +1,5 @@
 # before start project please create file "api.config.yml" and paste this configuration
+buildPath: build
 db:
   mysql:
     host: localhost

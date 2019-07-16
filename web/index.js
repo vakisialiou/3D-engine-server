@@ -9,5 +9,5 @@ import './src/containers/App'
 new Vue({
   store,
   el: '#app-container',
-  template: `<App/>`
+  template: `<App />`
 })

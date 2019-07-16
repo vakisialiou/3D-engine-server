@@ -1,3 +1,4 @@
+import Ajax from '@lib/Ajax'
 
 export default {
   namespaced: true,

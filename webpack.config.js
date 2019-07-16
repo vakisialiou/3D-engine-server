@@ -4,14 +4,14 @@ const path = require('path');
 const CopyWebpack = require('copy-webpack-plugin');
 const HtmlWebpack = require('html-webpack-plugin');
 const ExtractText = require('extract-text-webpack-plugin');
-const SpeedPlugin = require("speed-measure-webpack-plugin");
+const SpeedPlugin = require('speed-measure-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 
-const OUTPUT = 'build'
 const smp = new SpeedPlugin();
 const isProduction = getMode() === 'production';
+const OUTPUT = isProduction ? 'build' : 'build-dev'
 
 const config = {
   watch: ! isProduction,
@@ -23,21 +23,16 @@ const config = {
       return chunkData.chunk.name === 'main' ? '[name].js': '[name]/[contenthash].js';
     },
   },
-  devtool: 'inline-source-map',
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    },
-  },
   module: {
     rules: [
+      {
+        test: /\.yml$/,
+        exclude: /node_modules/,
+        use: [
+          'json-loader',
+          'yaml-frontmatter-loader'
+        ]
+      },
       {
         test: [
           /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -90,7 +85,27 @@ const config = {
   ],
 };
 
-module.exports = isProduction ? config : smp.wrap(config)
+if (isProduction) {
+  module.exports = config
+} else {
+  const devConfig = Object.assign(config, {
+    devtool: 'inline-source-map',
+    optimization: {
+      runtimeChunk: 'single',
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
+      },
+    },
+  })
+
+  module.exports = smp.wrap(devConfig)
+}
 
 function getMode() {
   return process.env.NODE_ENV || 'production'
