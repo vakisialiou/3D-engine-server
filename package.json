@@ -1,24 +1,17 @@
 {
-  "name": "socket.pub.sub",
+  "name": "3D-engine-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV='production' webpack --progress",
-    "watch": "NODE_ENV='development' webpack --watch --progress",
-    "server:prod": "node_modules/.bin/pm2 start process.yml",
-    "server:start": "nodemon --watch api ./index.js --exec babel-node --presets env"
+    "build": "node_modules/.bin/pm2 start process.yml",
+    "watch": "nodemon --watch app ./index.js --exec babel-node --presets env"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.3",
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.25",
     "chai": "^4.2.0",
     "connect-redis": "^3.3.3",
     "cookie-parser": "^1.4.3",
@@ -50,30 +43,5 @@
     "socket.io-redis": "^5.2.0",
     "uuid": "^3.2.1",
     "yaml-frontmatter-loader": "^0.1.0"
-  },
-  "devDependencies": {
-    "clean-webpack-plugin": "^1.0.0",
-    "copy-webpack-plugin": "^4.5.4",
-    "css-loader": "^1.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^2.0.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.1.0",
-    "image-webpack-loader": "^4.5.0",
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0",
-    "node-sass": "^4.9.4",
-    "sass-loader": "^7.1.0",
-    "speed-measure-webpack-plugin": "^1.2.3",
-    "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^1.1.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.4.2",
-    "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.5.17",
-    "vuex": "^3.1.0",
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5"
   }
 }

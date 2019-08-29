@@ -1,6 +1,6 @@
 apps:
   - script: ./index.js
-    name: 'socket-application'
+    name: '3D-engine-api'
     instances: 1
     exec_mode: fork
     exec_interpreter: ./node_modules/.bin/babel-node
