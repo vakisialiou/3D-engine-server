@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node_modules/.bin/pm2 start process.yml",
-    "watch": "nodemon --watch app ./index.js --exec babel-node --presets env"
+    "serve": "nodemon --watch app ./index.js --exec babel-node --presets env"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
