@@ -12,27 +12,31 @@ let server = http.createServer(app)
 
 var allowedOrigins = "http://localhost:* http://127.0.0.1:* http://192.168.1.145:*";
 const io = socket(server, { origins: allowedOrigins })
-// io.origins(['http://192.168.1.145:*']);
+
 io.adapter(redisAdapter({ host: config.redis.host, port: config.redis.port }))
 
 io.of('winner').on('connect', (socket) => {
   const userRoomId = uuid()
   socket.join(userRoomId, () => {
-    socket.emit('handshake', { userRoomId });
+    socket.emit('handshake', { userRoomId })
   });
 
   socket.on('come-in', (data) => {
-    socket.broadcast.emit('new-user', data);
+    socket.broadcast.emit('new-user', data)
   })
 
   socket.on('share-info', (data) => {
     const receiverSocketId = data.receiverRoomId
     delete data.receiverRoomId
-    socket.to(receiverSocketId).emit('old-user', data);
+    socket.to(receiverSocketId).emit('old-user', data)
   })
 
   socket.on('user-action', (data) => {
-    socket.broadcast.emit('action', data);
+    socket.broadcast.emit('action', data)
+  })
+
+  socket.on('close-window', (data) => {
+    socket.broadcast.emit('leave', data)
   })
 
   socket.on('disconnect', () => {
