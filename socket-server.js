@@ -4,11 +4,15 @@ import express from 'express'
 import socket from 'socket.io'
 import redisAdapter from 'socket.io-redis'
 import { config } from './core/index'
+import { defaultHeaders } from './middleware/headers'
 
 const app = express()
+
 let server = http.createServer(app)
 
-const io = socket(server)
+var allowedOrigins = "http://localhost:* http://127.0.0.1:* http://192.168.1.145:*";
+const io = socket(server, { origins: allowedOrigins })
+// io.origins(['http://192.168.1.145:*']);
 io.adapter(redisAdapter({ host: config.redis.host, port: config.redis.port }))
 
 io.of('winner').on('connect', (socket) => {

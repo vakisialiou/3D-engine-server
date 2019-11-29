@@ -1,8 +1,8 @@
-import * as core from '../core'
+import { config } from '../core'
 
 export function defaultHeaders(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', core.config['accessControl'])
+  res.setHeader('Access-Control-Allow-Origin', config['accessControl'])
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
